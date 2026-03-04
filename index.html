@@ -1,205 +1,1345 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Front-End Handbook</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Front-End Handbook">
-<meta property="og:url" content="https://frontend-handbook.github.io/index.html">
-<meta property="og:site_name" content="Front-End Handbook">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="326">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Front-End Handbook" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJD之家 - 专业的BJD娃娃交流与服务平台</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #673ab7;
+            --accent-color: #ff4081;
+            --text-color: #333;
+            --light-bg: #f9f0ff;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(255, 64, 129, 0.3);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        #bjd-model-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-card:hover .news-image {
+            transform: scale(1.05);
+        }
+        
+        .news-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .service-card:hover {
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .service-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+        
+        .footer-link {
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-image {
+                margin-top: 2rem;
+            }
+            
+            .section-title {
+                text-align: center;
+            }
+            
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--primary-color);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* 3D模型容器 */
+        .model-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 骨架屏 */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Front-End Handbook</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://frontend-handbook.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-dragon text-3xl text-purple-600 mr-2"></i>
+                        <span class="text-2xl font-bold text-purple-800">BJD之家</span>
+                    </a>
+                </div>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 font-medium">首页</a>
+                    <a href="#products" class="nav-link text-gray-700 hover:text-purple-600 font-medium">商品展示</a>
+                    <a href="#news" class="nav-link text-gray-700 hover:text-purple-600 font-medium">行业资讯</a>
+                    <a href="#knowledge" class="nav-link text-gray-700 hover:text-purple-600 font-medium">科普知识</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-purple-600 font-medium">信息技术服务</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 font-medium">关于我们</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 移动端导航菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden py-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">首页</a>
+                <a href="#products" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">商品展示</a>
+                <a href="#news" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">行业资讯</a>
+                <a href="#knowledge" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">科普知识</a>
+                <a href="#services" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">信息技术服务</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">关于我们</a>
+            </div>
+        </div>
+    </nav>
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/10/03/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-10-03T03:34:34.106Z" itemprop="datePublished">2024-10-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/10/03/hello-world/">Hello World</a>
-    </h1>
-  
+    <!-- 英雄区 -->
+    <section id="home" class="hero-section flex items-center pt-16">
+        <div class="hero-pattern"></div>
+        <div class="container mx-auto px-4 py-16 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 hero-content">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                        探索<span class="text-pink-300">BJD娃娃</span>的奇妙世界
+                    </h1>
+                    <p class="text-lg md:text-xl text-purple-100 mb-8 max-w-lg">
+                        BJD之家为您提供专业的BJD娃娃商品展示、行业资讯、科普知识以及相关领域的信息技术服务。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#products" class="btn-primary px-8 py-3 rounded-full text-white font-medium text-lg shadow-lg hover:shadow-xl">
+                            浏览商品
+                        </a>
+                        <a href="#knowledge" class="btn-accent px-8 py-3 rounded-full text-white font-medium text-lg shadow-lg hover:shadow-xl">
+                            了解更多
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 hero-image mt-12 md:mt-0">
+                    <div class="model-container" id="bjd-model-container">
+                        <!-- 3D模型将在这里渲染 -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="loader"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <!-- 商品展示区 -->
+    <section id="products" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">热门商品</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">精选高品质BJD娃娃及配件，满足您的收藏与装扮需求</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 商品卡片1 -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="https://img.freepik.com/free-photo/beautiful-bjd-doll-with-long-blonde-hair_23-2150691266.jpg" alt="BJD娃娃-优雅公主" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-pink-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                            新品
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">优雅公主</h3>
+                            <span class="text-pink-600 font-bold">¥1,280</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">1/3 scale BJD娃娃，含全套服装和配饰</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-sm ml-2">(42)</span>
+                            </div>
+                            <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center" data-product="优雅公主" data-price="1280">
+                                <i class="fas fa-shopping-cart mr-2"></i>
+                                加入购物车
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品卡片2 -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="https://img.freepik.com/free-photo/cute-bjd-doll-with-brown-hair_23-2150691267.jpg" alt="BJD娃娃-可爱精灵" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                            热销
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">可爱精灵</h3>
+                            <span class="text-pink-600 font-bold">¥980</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">1/4 scale BJD娃娃，含基础服装和鞋子</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-sm ml-2">(89)</span>
+                            </div>
+                            <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center" data-product="可爱精灵" data-price="980">
+                                <i class="fas fa-shopping-cart mr-2"></i>
+                                加入购物车
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品卡片3 -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="https://img.freepik.com/free-photo/bjd-doll-with-black-hair_23-2150691265.jpg" alt="BJD娃娃-暗黑骑士" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">暗黑骑士</h3>
+                            <span class="text-pink-600 font-bold">¥1,580</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">1/3 scale BJD娃娃，含盔甲套装和武器</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-sm ml-2">(36)</span>
+                            </div>
+                            <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center" data-product="暗黑骑士" data-price="1580">
+                                <i class="fas fa-shopping-cart mr-2"></i>
+                                加入购物车
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-full transition duration-300">
+                    查看更多商品
+                </a>
+            </div>
+        </div>
+    </section>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    <!-- 行业资讯区 -->
+    <section id="news" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">行业资讯</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">了解BJD娃娃行业的最新动态和趋势</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 资讯卡片1 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-photo/bjd-doll-exhibition_23-2150691264.jpg" alt="BJD娃娃展会" class="news-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">展会信息</span>
+                            <span class="text-gray-500 text-sm ml-auto">2023-06-15</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">2023年亚洲BJD娃娃展会将于8月在东京举办</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            亚洲最大的BJD娃娃展会将于2023年8月15日至20日在东京国际展览中心举行，届时将有来自全球各地的知名BJD品牌参展，展示最新产品和技术。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            阅读更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 资讯卡片2 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-photo/bjd-doll-customization_23-2150691263.jpg" alt="BJD娃娃定制" class="news-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">技术趋势</span>
+                            <span class="text-gray-500 text-sm ml-auto">2023-05-28</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">3D打印技术在BJD娃娃定制中的应用与发展</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            随着3D打印技术的不断发展，越来越多的BJD娃娃制造商开始采用这项技术进行定制化生产，不仅提高了生产效率，还为消费者提供了更多个性化选择。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            阅读更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 资讯卡片3 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-photo/bjd-doll-collection_23-2150691262.jpg" alt="BJD娃娃收藏" class="news-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">收藏指南</span>
+                            <span class="text-gray-500 text-sm ml-auto">2023-05-10</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">BJD娃娃收藏指南：如何鉴别真伪与保养维护</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            对于BJD娃娃收藏爱好者来说，鉴别真伪和正确保养是非常重要的。本文将为您介绍一些实用的鉴别方法和保养技巧，帮助您更好地收藏和维护您的BJD娃娃。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            阅读更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-full transition duration-300">
+                    查看更多资讯
+                </a>
+            </div>
+        </div>
+    </section>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    <!-- 科普知识区 -->
+    <section id="knowledge" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">科普知识</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">了解BJD娃娃的起源、制作工艺和文化背景</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 知识内容1 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-purple-100 rounded-full h-24 w-24 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-history text-4xl text-purple-600"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">BJD娃娃的起源与发展</h3>
+                        <p class="text-gray-600 mb-4">
+                            BJD娃娃（Ball-jointed Doll）起源于19世纪的欧洲，最初是作为艺术收藏品和儿童玩具。20世纪末，日本艺术家们将这一传统工艺与现代设计相结合，创造出了具有亚洲特色的BJD娃娃，并在全球范围内掀起了收藏热潮。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            了解更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 知识内容2 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-pink-100 rounded-full h-24 w-24 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-tools text-4xl text-pink-600"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">BJD娃娃的制作工艺</h3>
+                        <p class="text-gray-600 mb-4">
+                            BJD娃娃通常采用高级树脂材料制作，经过设计、雕刻、翻模、打磨、组装等多道工序。每个环节都需要工匠的精心操作，才能打造出具有精美细节和灵活关节的高品质BJD娃娃。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            了解更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 知识内容3 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-blue-100 rounded-full h-24 w-24 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-paint-brush text-4xl text-blue-600"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">BJD娃娃的化妆与造型</h3>
+                        <p class="text-gray-600 mb-4">
+                            BJD娃娃的化妆是一项精细的艺术，包括面部彩绘、眼影、唇妆等。同时，服装、发型和配饰的搭配也能展现不同的风格和个性，让每个BJD娃娃都独一无二。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            了解更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 知识内容4 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-green-100 rounded-full h-24 w-24 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-users text-4xl text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">BJD娃娃的社区文化</h3>
+                        <p class="text-gray-600 mb-4">
+                            全球各地都有活跃的BJD娃娃爱好者社区，他们通过线上论坛、社交媒体和线下聚会等方式交流分享。这些社区不仅促进了BJD文化的传播，也为爱好者提供了交流和学习的平台。
+                        </p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                            了解更多
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+    <!-- 信息技术服务区 -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">信息技术服务</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">我们提供专业的BJD相关信息技术服务，助力行业数字化转型</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 服务卡片1 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-vr-cardboard text-5xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">3D虚拟展示</h3>
+                    <p class="text-gray-600 mb-4">
+                        利用3D建模和VR技术，为BJD娃娃提供沉浸式虚拟展示体验，让客户可以在购买前360度全方位查看产品细节。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片2 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-mobile-alt text-5xl text-pink-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">移动应用开发</h3>
+                    <p class="text-gray-600 mb-4">
+                        为BJD娃娃品牌和商家开发定制化移动应用，提供产品展示、在线购买、社区互动等功能，提升用户体验和销售转化率。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片3 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-cloud text-5xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">云服务与数据分析</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供BJD行业专属的云服务解决方案，包括库存管理、客户关系管理、销售数据分析等，帮助企业实现数字化运营。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片4 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-shopping-cart text-5xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">电商平台搭建</h3>
+                    <p class="text-gray-600 mb-4">
+                        为BJD娃娃品牌和商家搭建专业的电商平台，提供安全便捷的在线购物体验，支持多语言、多货币和全球配送。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片5 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-camera text-5xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">产品摄影与图像处理</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供专业的BJD娃娃产品摄影和图像处理服务，展现产品的细节和质感，提升产品形象和销售吸引力。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片6 -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-md">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-robot text-5xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">AI个性化推荐</h3>
+                    <p class="text-gray-600 mb-4">
+                        利用人工智能技术，根据用户的浏览和购买历史，为客户提供个性化的BJD娃娃和配件推荐，提升购物体验和转化率。
+                    </p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center">
+                        了解详情
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <!-- 关于我们区 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">关于我们</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">BJD之家致力于为全球BJD娃娃爱好者提供专业的服务和交流平台</p>
+            
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <img src="https://img.freepik.com/free-photo/bjd-doll-workshop_23-2150691261.jpg" alt="BJD之家团队" class="rounded-xl shadow-lg w-full h-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">我们的使命</h3>
+                    <p class="text-gray-600 mb-6">
+                        BJD之家成立于2018年，是一家专注于BJD娃娃行业的综合性服务平台。我们的使命是通过提供高质量的商品、专业的资讯和创新的技术服务，推动BJD文化的传播和发展，为全球BJD爱好者打造一个温馨、专业的交流社区。
+                    </p>
+                    
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">我们的优势</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 rounded-full p-2 mr-4">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">专业团队</h4>
+                                <p class="text-gray-600">我们的团队由BJD行业资深专家和技术精英组成，拥有丰富的行业经验和专业知识。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 rounded-full p-2 mr-4">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">优质服务</h4>
+                                <p class="text-gray-600">我们致力于为客户提供全方位的优质服务，从商品咨询到售后支持，全程专业贴心。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 rounded-full p-2 mr-4">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">创新技术</h4>
+                                <p class="text-gray-600">我们不断探索和应用新技术，为BJD行业带来创新的解决方案和服务模式。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-full transition duration-300">
+                            联系我们
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://frontend-handbook.github.io/2024/10/03/hello-world/" data-id="cm1srhtf80000y27d0jay51jr" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
+    <!-- 联系我们区 -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">联系我们</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl">如果您有任何问题或建议，欢迎随时联系我们</p>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="请输入您的姓名" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">邮箱</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="请输入您的邮箱" required>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">主题</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="请输入主题" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">留言</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="请输入您的留言" required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                                提交
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-md h-full">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fas fa-map-marker-alt text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">地址</h4>
+                                    <p class="text-gray-600">上海市浦东新区张江高科技园区科苑路88号</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fas fa-phone-alt text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">电话</h4>
+                                    <p class="text-gray-600">+86 21 1234 5678</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fas fa-envelope text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">邮箱</h4>
+                                    <p class="text-gray-600">info@bjdhome.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fas fa-clock text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">工作时间</h4>
+                                    <p class="text-gray-600">周一至周五: 9:00 - 18:00</p>
+                                    <p class="text-gray-600">周六至周日: 10:00 - 16:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-gray-800 mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full p-3 transition duration-300">
+                                    <i class="fab fa-weixin text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full p-3 transition duration-300">
+                                    <i class="fab fa-weibo text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full p-3 transition duration-300">
+                                    <i class="fab fa-qq text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full p-3 transition duration-300">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-dragon text-3xl text-purple-400 mr-2"></i>
+                        <span class="text-2xl font-bold text-white">BJD之家</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        专业的BJD娃娃交流与服务平台，为全球BJD爱好者提供优质的商品和服务。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-weixin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-weibo text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-qq text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">快速链接</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="footer-link text-gray-400 hover:text-white transition duration-300">首页</a></li>
+                        <li><a href="#products" class="footer-link text-gray-400 hover:text-white transition duration-300">商品展示</a></li>
+                        <li><a href="#news" class="footer-link text-gray-400 hover:text-white transition duration-300">行业资讯</a></li>
+                        <li><a href="#knowledge" class="footer-link text-gray-400 hover:text-white transition duration-300">科普知识</a></li>
+                        <li><a href="#services" class="footer-link text-gray-400 hover:text-white transition duration-300">信息技术服务</a></li>
+                        <li><a href="#about" class="footer-link text-gray-400 hover:text-white transition duration-300">关于我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">客户服务</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">常见问题</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">购物指南</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">配送方式</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">退换货政策</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">隐私政策</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition duration-300">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">订阅我们</h3>
+                    <p class="text-gray-400 mb-4">
+                        订阅我们的电子邮件，获取最新的BJD资讯和优惠信息。
+                    </p>
+                    <form id="subscribe-form" class="space-y-4">
+                        <div>
+                            <input type="email" placeholder="请输入您的邮箱" class="w-full px-4 py-2 rounded-lg focus:outline-none text-gray-800">
+                        </div>
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 w-full">
+                            订阅
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2023 BJD之家. 保留所有权利.
+                </p>
+                <div class="flex items-center">
+                    <a href="https://beian.miit.gov.cn" target="_blank" class="text-gray-400 hover:text-white transition duration-300 text-sm">
+                        浙ICP备2023020062号-6
+                    </a>
+                </div>
+            </div>
+        </div>
     </footer>
-  </div>
-  
-</article>
 
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li></ul>
+    <!-- 购物车侧边栏 -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">购物车</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-y-auto mb-6">
+                <!-- 购物车商品将在这里动态添加 -->
+                <div class="text-center text-gray-500 py-8">
+                    购物车为空
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-700 font-medium">总计:</span>
+                    <span id="cart-total" class="text-xl font-bold text-purple-600">¥0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition duration-300">
+                    结算
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/10/03/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 326<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <!-- 购物车按钮 -->
+    <button id="cart-button" class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition duration-300 z-40">
+        <i class="fas fa-shopping-cart text-xl"></i>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">0</span>
+    </button>
     
+    <!-- 返回顶部按钮 -->
+    <div class="scroll-top" id="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
 
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-3');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2');
+            }
+        });
+        
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端，点击后关闭菜单
+                    if (window.innerWidth < 768) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // 返回顶部按钮
+        const scrollTopBtn = document.getElementById('scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 购物车功能
+        const cartButton = document.getElementById('cart-button');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCart = document.getElementById('close-cart');
+        const overlay = document.getElementById('overlay');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        let cart = [];
+        
+        // 打开购物车
+        cartButton.addEventListener('click', () => {
+            cartSidebar.classList.remove('translate-x-full');
+            overlay.classList.add('opacity-50');
+            overlay.classList.remove('pointer-events-none');
+        });
+        
+        // 关闭购物车
+        function closeCartSidebar() {
+            cartSidebar.classList.add('translate-x-full');
+            overlay.classList.remove('opacity-50');
+            overlay.classList.add('pointer-events-none');
+        }
+        
+        closeCart.addEventListener('click', closeCartSidebar);
+        overlay.addEventListener('click', closeCartSidebar);
+        
+        // 添加商品到购物车
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                const productPrice = parseFloat(this.getAttribute('data-price'));
+                
+                // 检查商品是否已在购物车中
+                const existingItem = cart.find(item => item.name === productName);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showAddToCartAnimation(this);
+            });
+        });
+        
+        // 更新购物车
+        function updateCart() {
+            // 更新购物车数量
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            // 更新购物车内容
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        购物车为空
+                    </div>
+                `;
+                cartTotal.textContent = '¥0.00';
+                return;
+            }
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'flex items-center justify-between py-3 border-b border-gray-100';
+                cartItemElement.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 rounded-lg p-2 mr-3">
+                            <i class="fas fa-dragon text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">${item.name}</h4>
+                            <p class="text-sm text-gray-500">¥${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="decrease-quantity text-gray-500 hover:text-gray-700 focus:outline-none" data-index="${index}">
+                            <i class="fas fa-minus-circle"></i>
+                        </button>
+                        <span class="mx-2 text-gray-700">${item.quantity}</span>
+                        <button class="increase-quantity text-gray-500 hover:text-gray-700 focus:outline-none" data-index="${index}">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                        <button class="remove-item ml-2 text-gray-400 hover:text-red-500 focus:outline-none" data-index="${index}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            cartTotal.textContent = `¥${total.toFixed(2)}`;
+            
+            // 添加事件监听器
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity -= 1;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    updateCart();
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    cart[index].quantity += 1;
+                    updateCart();
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    cart.splice(index, 1);
+                    updateCart();
+                });
+            });
+        }
+        
+        // 添加到购物车动画
+        function showAddToCartAnimation(button) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300';
+            notification.textContent = '已添加到购物车';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+        
+        // 结算按钮
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('购物车为空，请先添加商品');
+                return;
+            }
+            
+            alert('感谢您的购买！订单已提交，我们将尽快处理。');
+            cart = [];
+            updateCart();
+            closeCartSidebar();
+        });
+        
+        // 联系表单提交
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // 模拟表单提交
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 提交中...';
+            
+            setTimeout(() => {
+                alert(`感谢您的留言，${name}！我们会尽快回复您。`);
+                contactForm.reset();
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }, 1500);
+        });
+        
+        // 订阅表单提交
+        const subscribeForm = document.getElementById('subscribe-form');
+        subscribeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (!email) {
+                alert('请输入您的邮箱');
+                return;
+            }
+            
+            // 模拟表单提交
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 订阅中...';
+            
+            setTimeout(() => {
+                alert(`感谢您的订阅！我们会定期发送最新资讯到 ${email}`);
+                subscribeForm.reset();
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }, 1500);
+        });
+        
+        // 3D模型展示
+        function init3DModel() {
+            // 创建场景
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000, 0);
+            
+            // 创建相机
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // 创建渲染器
+            const container = document.getElementById('bjd-model-container');
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.innerHTML = '';
+            container.appendChild(renderer.domElement);
+            
+            // 添加灯光
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // 创建一个简单的BJD娃娃模型（使用几何体代替）
+            const headGeometry = new THREE.SphereGeometry(1, 32, 32);
+            const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffe0bd });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            scene.add(head);
+            
+            const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.7, 2, 32);
+            const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0xffe0bd });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.position.y = -2;
+            scene.add(body);
+            
+            // 添加一些装饰
+            const hairGeometry = new THREE.ConeGeometry(1.2, 1.5, 32);
+            const hairMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+            const hair = new THREE.Mesh(hairGeometry, hairMaterial);
+            hair.position.y = 0.8;
+            scene.add(hair);
+            
+            const dressGeometry = new THREE.ConeGeometry(1, 2, 32);
+            const dressMaterial = new THREE.MeshPhongMaterial({ color: 0x9c27b0 });
+            const dress = new THREE.Mesh(dressGeometry, dressMaterial);
+            dress.position.y = -2;
+            dress.scale.y = 0.8;
+            scene.add(dress);
+            
+            // 动画循环
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                head.rotation.y += 0.01;
+                body.rotation.y += 0.01;
+                hair.rotation.y += 0.01;
+                dress.rotation.y += 0.01;
+                
+                renderer.render(scene, camera);
+            }
+            
+            // 响应窗口大小变化
+            function onWindowResize() {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
+            
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // 开始动画
+            animate();
+        }
+        
+        // 页面加载完成后初始化3D模型
+        window.addEventListener('load', init3DModel);
+    </script>
 </body>
 </html>
